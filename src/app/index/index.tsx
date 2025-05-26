@@ -1,9 +1,9 @@
 import { Categories } from "@/components/categories";
+import { Link } from "@/components/link";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Image, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../styles/colors";
 import { styles } from "./styles";
-import { Link } from "@/components/link";
 
 export default function Index() {
     return (
@@ -15,7 +15,28 @@ export default function Index() {
                 </TouchableOpacity>
             </View>
             <Categories />
-            <Link name="Rocketseat" url="https://www.rocketseat.com.br/" onDetails={() => console.log('Clicou!')} />
+            <FlatList data={["1", "2", "3"]} keyExtractor={item => item} renderItem={() => (
+                <Link name="Rocketseat" url="https://www.rocketseat.com.br/" onDetails={() => console.log('Clicou!')} />
+            )}
+                style={styles.links}
+                contentContainerStyle={styles.linksContent}
+                showsVerticalScrollIndicator={false} // Desabilita a rolagem na vertical
+            />
+
+            <Modal transparent visible={true}>
+                <View style={styles.modal}>
+                    <View style={styles.modalContent}>
+                        <View style={styles.modalHeader}>
+                            <Text style={styles.modalCategory}>Curso</Text>
+                            <TouchableOpacity>
+                                <MaterialIcons name="close" size={20} color={colors.gray[400]} />
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={styles.modalLinkName}>Rockeatset</Text>
+                        <Text style={styles.modaUrl}>https://www.rocketseat.com.br/</Text>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }

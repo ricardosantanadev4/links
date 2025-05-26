@@ -1,5 +1,6 @@
 import { Categories } from "@/components/categories";
 import { Link } from "@/components/link";
+import { Option } from "@/components/option";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../styles/colors";
@@ -34,6 +35,11 @@ export default function Index() {
                         </View>
                         <Text style={styles.modalLinkName}>Rockeatset</Text>
                         <Text style={styles.modaUrl}>https://www.rocketseat.com.br/</Text>
+
+                        <View style={styles.modalFooter}>
+                            <Option name="Excluir" icon="delete" variant="secondary" />
+                            <Option name="Abrir" icon="language" />
+                        </View>
                     </View>
                 </View>
             </Modal>

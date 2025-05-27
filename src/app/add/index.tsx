@@ -9,6 +9,7 @@ import { Text, TouchableOpacity, View } from "react-native"
 import { styles } from "./styles"
 
 export default function Add() {
+    const [categoy, setCategory] = useState("")
     const [name, setName] = useState("")
     const [url, setUrl] = useState("")
 
@@ -28,7 +29,7 @@ export default function Add() {
 
             <Text style={styles.label}>Selecione uma categoria</Text>
 
-            <Categories />
+            <Categories selected={categoy} onChange={setCategory} />
 
             <View style={styles.form}>
                 <Input placeholder="Nome" onChangeText={setName} autoCorrect={false} />

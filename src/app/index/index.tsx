@@ -1,11 +1,11 @@
-import { Categories } from "@/components/categories";
-import { Link } from "@/components/link";
-import { Option } from "@/components/option";
-import { MaterialIcons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native";
-import { colors } from "../../styles/colors";
-import { styles } from "./styles";
+import { Categories } from "@/components/categories"
+import { Link } from "@/components/link"
+import { Option } from "@/components/option"
+import { MaterialIcons } from "@expo/vector-icons"
+import { router } from "expo-router"
+import { FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native"
+import { colors } from "../../styles/colors"
+import { styles } from "./styles"
 
 export default function Index() {
     return (

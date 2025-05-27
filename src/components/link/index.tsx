@@ -1,14 +1,13 @@
-import { Text, View, TouchableOpacity } from "react-native"
-import { MaterialIcons } from "@expo/vector-icons"
-import { styles } from "./styles"
 import { colors } from "@/styles/colors"
+import { MaterialIcons } from "@expo/vector-icons"
+import { Text, TouchableOpacity, View } from "react-native"
+import { styles } from "./styles"
 
 type Props = {
     name: string
     url: string
     onDetails: () => void
 }
-
 
 export function Link({ name, url, onDetails }: Props) {
     return (

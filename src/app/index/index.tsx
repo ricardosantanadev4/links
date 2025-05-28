@@ -4,8 +4,8 @@ import { Option } from "@/components/option"
 import { linksStorage, LinkStorage } from "@/storage/link-storage"
 import { categories } from "@/utils/categories"
 import { MaterialIcons } from "@expo/vector-icons"
-import { router } from "expo-router"
-import { useEffect, useState } from "react"
+import { router, useFocusEffect } from "expo-router"
+import { useCallback, useState } from "react"
 import { Alert, FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native"
 import { colors } from "../../styles/colors"
 import { styles } from "./styles"
@@ -23,10 +23,9 @@ export default function Index() {
         }
     }
 
-    useEffect(() => {
-        console.log('Chamou useEffect()')
+    useFocusEffect(useCallback(() => {
         getLinks()
-    }, [category])
+    }, []))
 
     return (
         <View style={styles.container}>

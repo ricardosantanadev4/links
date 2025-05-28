@@ -10,7 +10,7 @@ import { Alert, Text, TouchableOpacity, View } from "react-native"
 import { styles } from "./styles"
 
 export default function Add() {
-    
+
     const [category, setCategory] = useState("")
     const [name, setName] = useState("")
     const [url, setUrl] = useState("")
@@ -35,10 +35,6 @@ export default function Add() {
                 url,
                 category
             })
-
-            const data = await linksStorage.get()
-
-            console.log({ data })
 
         } catch (erro) {
             Alert.alert("Erro", "Não foi possível salvar o link")

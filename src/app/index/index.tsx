@@ -11,21 +11,29 @@ import { colors } from "../../styles/colors"
 import { styles } from "./styles"
 
 export default function Index() {
+    const [showModal, setShowModal] = useState(false)
+    const [link, setLink] = useState<LinkStorage>({} as LinkStorage)
     const [links, setLinks] = useState<LinkStorage[]>([])
     const [category, setCategory] = useState(categories[0].name)
 
     async function getLinks() {
         try {
             const response = await linksStorage.get()
-            setLinks(response)
+            const filtred = response.filter((link) => link.category === category)
+            setLinks(filtred)
         } catch (error) {
             Alert.alert("Erro", "Não foi possóvel listar os links")
         }
     }
 
+    function handleDatails(selected: LinkStorage) {
+        setShowModal(true)
+        setLink(selected)
+    }
+
     useFocusEffect(useCallback(() => {
         getLinks()
-    }, []))
+    }, [category]))
 
     return (
         <View style={styles.container}>
@@ -39,24 +47,24 @@ export default function Index() {
             <Categories selected={category} onChange={setCategory} />
 
             <FlatList data={links} keyExtractor={item => item.id} renderItem={({ item }) => (
-                <Link name={item.name} url={item.url} onDetails={() => console.log('Clicou!')} />
+                <Link name={item.name} url={item.url} onDetails={() => handleDatails(item)} />
             )}
                 style={styles.links}
                 contentContainerStyle={styles.linksContent}
                 showsVerticalScrollIndicator={false} // Desabilita a rolagem na vertical
             />
 
-            <Modal transparent visible={false}>
+            <Modal transparent visible={showModal} animationType="slide">
                 <View style={styles.modal}>
                     <View style={styles.modalContent}>
                         <View style={styles.modalHeader}>
-                            <Text style={styles.modalCategory}>Curso</Text>
-                            <TouchableOpacity>
+                            <Text style={styles.modalCategory}>{link.category}</Text>
+                            <TouchableOpacity onPress={() => setShowModal(false)}>
                                 <MaterialIcons name="close" size={20} color={colors.gray[400]} />
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.modalLinkName}>Rockeatset</Text>
-                        <Text style={styles.modaUrl}>https://www.rocketseat.com.br/</Text>
+                        <Text style={styles.modalLinkName}>{link.name}</Text>
+                        <Text style={styles.modaUrl}>{link.url}</Text>
 
                         <View style={styles.modalFooter}>
                             <Option name="Excluir" icon="delete" variant="secondary" />

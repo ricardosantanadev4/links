@@ -6,9 +6,10 @@ import { categories } from "@/utils/categories"
 import { MaterialIcons } from "@expo/vector-icons"
 import { router, useFocusEffect } from "expo-router"
 import { useCallback, useState } from "react"
-import { Alert, FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native"
+import { Alert, FlatList, Image, Linking, Modal, Text, TouchableOpacity, View } from "react-native"
 import { colors } from "../../styles/colors"
 import { styles } from "./styles"
+
 
 export default function Index() {
     const [showModal, setShowModal] = useState(false)
@@ -29,6 +30,34 @@ export default function Index() {
     function handleDatails(selected: LinkStorage) {
         setShowModal(true)
         setLink(selected)
+    }
+
+    async function linkRemove() {
+        try {
+            await linksStorage.remove(link.id)
+            getLinks()
+            setShowModal(false)
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível excluir")
+            console.log(error)
+        }
+
+    }
+
+    function handleRemove() {
+        Alert.alert("Excluir", "Deseja realmente excluir?", [
+            { style: "cancel", text: "Não" },
+            { text: "Sim", onPress: linkRemove }
+        ])
+    }
+
+    async function handleOpen() {
+        try {
+            await Linking.openURL(link.url)
+        } catch (error) {
+            Alert.alert("Link", "Não foi possível abrir o link")
+            console.log(error)
+        }
     }
 
     useFocusEffect(useCallback(() => {
@@ -67,8 +96,8 @@ export default function Index() {
                         <Text style={styles.modaUrl}>{link.url}</Text>
 
                         <View style={styles.modalFooter}>
-                            <Option name="Excluir" icon="delete" variant="secondary" />
-                            <Option name="Abrir" icon="language" />
+                            <Option name="Excluir" icon="delete" variant="secondary" onPress={handleRemove} />
+                            <Option name="Abrir" icon="language" onPress={handleOpen} />
                         </View>
                     </View>
                 </View>
